@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:legal_precedents/pages/ForgotPassword.dart';
+import 'package:legal_precedents/pages/SignUp.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -88,6 +90,45 @@ class _SignInState extends State<SignIn> {
                   ),
                   onPressed: submit,
                 ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPassword()));
+                    },
+                    child: Text(
+                      "Forgot Pasword ?",
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Do not have an account? "),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SignUp()));
+                    },
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                  )
+                ],
               )
             ],
           ),

@@ -6,6 +6,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool _showPassword = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,31 @@ class _SignInState extends State<SignIn> {
                     contentPadding: EdgeInsets.only(left: 20, top: 20),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)))),
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextField(
+                style: TextStyle(fontSize: 22),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock_open,
+                      color: Color(0xFF707070),
+                    ),
+                    suffixIcon: IconButton(
+                        icon: Icon(this._showPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            this._showPassword = !this._showPassword;
+                          });
+                        }),
+                    hintText: "Password",
+                    contentPadding: EdgeInsets.only(left: 20, top: 20),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+              ),
             ],
           ),
         ),

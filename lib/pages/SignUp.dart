@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:legal_precedents/pages/dashbaord.dart';
 import 'package:legal_precedents/services/auth_service.dart';
 
 class SignUp extends StatefulWidget {
@@ -18,11 +19,21 @@ class _SignUpState extends State<SignUp> {
   TextEditingController nameController;
 
   @override
-  initState() {}
+  initState() {
+    emailInputController = new TextEditingController();
+    passwordController = new TextEditingController();
+    nameController = new TextEditingController();
+    super.initState();
+  }
 
   submit(String email, String password, String name) async {
     try {
       await _authService.createUser(email, password, name);
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) => Dashbaord()), (_) => false);
+      emailInputController.clear();
+      passwordController.clear();
+      nameController.clear();
     } catch (e) {
       print("An error occurred");
     }
@@ -51,6 +62,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                 style: TextStyle(fontSize: 22),
+                controller: nameController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.account_circle,
@@ -65,6 +77,7 @@ class _SignUpState extends State<SignUp> {
                 height: 20,
               ),
               TextField(
+                controller: emailInputController,
                 style: TextStyle(fontSize: 22),
                 decoration: InputDecoration(
                     prefixIcon: Icon(
@@ -82,6 +95,7 @@ class _SignUpState extends State<SignUp> {
               TextField(
                 style: TextStyle(fontSize: 22),
                 obscureText: this._showPassword,
+                controller: passwordController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.lock_open,
@@ -118,7 +132,10 @@ class _SignUpState extends State<SignUp> {
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
-                  onPressed: submit,
+                  onPressed: () async {
+                    await submit(emailInputController.text,
+                        passwordController.text, nameController.text);
+                  },
                 ),
               )
             ],

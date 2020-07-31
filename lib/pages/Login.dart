@@ -9,11 +9,12 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   bool _showPassword = true;
-  @override
+
   submit() {
     print("I have submitted");
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(

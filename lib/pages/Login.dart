@@ -107,8 +107,7 @@ class _SignInState extends State<SignIn> {
                     child: Text(
                       "Forgot Pasword ?",
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                      ),
+                          color: Theme.of(context).primaryColor, fontSize: 18),
                     ),
                   )
                 ],
@@ -127,7 +126,8 @@ class _SignInState extends State<SignIn> {
                     },
                     child: Text(
                       "Sign Up",
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor, fontSize: 18),
                     ),
                   )
                 ],

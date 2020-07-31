@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "126294462727",
+    "firebase_url": "https://legal-precedent.firebaseio.com",
+    "project_id": "legal-precedent",
+    "storage_bucket": "legal-precedent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126294462727:android:04b869f9ec4ca06a2635a2",
+        "android_client_info": {
+          "package_name": "a10xcode.legal_precedents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126294462727-3vpcpgvpk8hbe3maavfumjdngjm10fed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "a10xcode.legal_precedents",
+            "certificate_hash": "5de64c25995aa917dbe4c9c89ed43a03aa9b85ce"
+          }
+        },
+        {
+          "client_id": "126294462727-vikg67n93tq7chcpo8k3d7d92j245ju7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8aAGD4mlEvBRCs-DqIsy_RL_0omuGE-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126294462727-vikg67n93tq7chcpo8k3d7d92j245ju7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,10 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   bool _showPassword = true;
   @override
+  submit() {
+    print("I have submitted");
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -45,6 +49,7 @@ class _SignInState extends State<SignIn> {
               ),
               TextField(
                 style: TextStyle(fontSize: 22),
+                obscureText: this._showPassword,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.lock_open,
@@ -64,6 +69,26 @@ class _SignInState extends State<SignIn> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)))),
               ),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      "Sign In ",
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  onPressed: submit,
+                ),
+              )
             ],
           ),
         ),

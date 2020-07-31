@@ -1,17 +1,34 @@
 import "package:flutter/material.dart";
+import 'package:legal_precedents/services/auth_service.dart';
 
 class SignUp extends StatefulWidget {
+  SignUp({Key key}) : super(key: key);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
   bool _showPassword = true;
+  AuthService _authService = AuthService();
+
+  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
+  TextEditingController emailInputController;
+  TextEditingController passwordController;
+  TextEditingController nameController;
+
   @override
-  submit() {
-    print("I have submitted");
+  initState() {}
+
+  submit(String email, String password, String name) async {
+    try {
+      await _authService.createUser(email, password, name);
+    } catch (e) {
+      print("An error occurred");
+    }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:legal_precedents/pages/ForgotPassword.dart';
 import 'package:legal_precedents/pages/SignUp.dart';
+import 'package:legal_precedents/pages/dashbaord.dart';
+import 'package:legal_precedents/services/auth_service.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -9,9 +11,27 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   bool _showPassword = true;
+  AuthService _authService = AuthService();
+  TextEditingController emailController;
+  TextEditingController passwordController;
 
-  submit() {
-    print("I have submitted");
+  @override
+  initState() {
+    emailController = new TextEditingController();
+    passwordController = new TextEditingController();
+    super.initState();
+  }
+
+  submit(String email, String password) {
+    try {
+      _authService.signIn(email, password);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Dashbaord()));
+      emailController.clear();
+      passwordController.clear();
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -37,6 +57,7 @@ class _SignInState extends State<SignIn> {
               ),
               TextField(
                 style: TextStyle(fontSize: 22),
+                controller: emailController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.account_circle,
@@ -52,6 +73,7 @@ class _SignInState extends State<SignIn> {
               ),
               TextField(
                 style: TextStyle(fontSize: 22),
+                controller: passwordController,
                 obscureText: this._showPassword,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
@@ -89,7 +111,9 @@ class _SignInState extends State<SignIn> {
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
-                  onPressed: submit,
+                  onPressed: () async {
+                    submit(passwordController.text, passwordController.text);
+                  },
                 ),
               ),
               SizedBox(

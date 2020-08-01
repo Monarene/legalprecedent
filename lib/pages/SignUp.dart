@@ -26,16 +26,16 @@ class _SignUpState extends State<SignUp> {
     super.initState();
   }
 
-  submit(String email, String password, String name) async {
+  submit(String email, String password, String name) {
     try {
-      await _authService.createUser(email, password, name);
+      _authService.createUser(email, password, name);
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) => Dashbaord()), (_) => false);
       emailInputController.clear();
       passwordController.clear();
       nameController.clear();
     } catch (e) {
-      print("An error occurred");
+      print(e);
     }
   }
 

@@ -1,6 +1,10 @@
-import "package:flutter/material.dart";
-import 'package:legal_precedents/pages/Login.dart';
 import 'dart:async';
+
+import "package:flutter/material.dart";
+import "package:legal_precedents/Provider/startup_provider.dart";
+import 'package:legal_precedents/pages/Login.dart';
+import 'package:legal_precedents/pages/dashbaord.dart';
+import "package:provider/provider.dart";
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -8,19 +12,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  var startupProvider = Provider.of<StartUpProvider>(context);
+
   @override
   Widget build(BuildContext context) {
-    return initScreen(context);
+    if (startupProvider.onAuthenticated) {
+      return Dashbaord();
+    } else if (startupProvider.onfirstStart) {
+      return SignIn();
+    } else {
+      return initScreen(context);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    startupProvider.onfirstStart ? null : startTimer();
   }
 
   startTimer() async {
-    var duration = Duration(seconds: 10);
+    var duration = Duration(seconds: 5);
     return new Timer(duration, route);
   }
 

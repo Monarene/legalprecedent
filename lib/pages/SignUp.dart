@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import 'package:legal_precedents/Provider/startup_provider.dart';
 import 'package:legal_precedents/pages/dashbaord.dart';
 import 'package:legal_precedents/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -26,16 +28,18 @@ class _SignUpState extends State<SignUp> {
     super.initState();
   }
 
-  submit(String email, String password, String name) {
-    try {
-      _authService.createUser(email, password, name);
+  submit(String email, String password, String name) async {
+    var startupProvider = Provider.of<StartUpProvider>(context, listen: false);
+    var uid = await _authService.createUser(email, password, name);
+    if (uid != null) {
+      startupProvider.setOnAuthenticated(true);
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) => Dashbaord()), (_) => false);
       emailInputController.clear();
       passwordController.clear();
       nameController.clear();
-    } catch (e) {
-      print(e);
+    } else {
+      print("An error occurred");
     }
   }
 
@@ -133,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   onPressed: () async {
-                    await submit(emailInputController.text,
+                    await submit(emailInputController.text.trim(),
                         passwordController.text, nameController.text);
                   },
                 ),

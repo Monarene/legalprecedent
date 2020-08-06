@@ -8,6 +8,8 @@ class Dashbaord extends StatefulWidget {
 class _DashbaordState extends State<Dashbaord> {
   @override
   Widget build(BuildContext context) {
+//    var startupProvider = Provider.of<StartUpProvider>(context);
+//    startupProvider.setOnAuthenticated(true);
     return Scaffold(
       body: Center(
         child: Text('dashbaord.com'),

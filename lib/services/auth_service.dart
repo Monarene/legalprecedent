@@ -18,11 +18,13 @@ class AuthService {
         .setData({"username": name, "uid": currentUser.user.uid});
 
     await currentUser.user.reload();
+    return currentUser.user.uid;
   }
 
   signIn(String email, String password) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
+    final currentUser = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+    return currentUser.user.uid;
   }
 
   signOut() {

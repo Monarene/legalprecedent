@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:legal_precedents/Provider/startup_provider.dart";
+import 'package:legal_precedents/pages/root.dart';
 import "package:provider/provider.dart";
-
-import './pages/SplashScreen.dart'
 
 void main() => runApp(MyApp());
 
@@ -23,7 +22,7 @@ class _MyAppState extends State<MyApp> {
             textTheme:
                 GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
         home: Scaffold(
-          body: SplashScreen(),
+          body: RootPage(),
         ),
       ),
     );

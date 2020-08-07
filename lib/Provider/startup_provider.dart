@@ -6,7 +6,7 @@ class StartUpProvider with ChangeNotifier {
   bool _onAuthenticated;
 
   StartUpProvider() {
-    _onfirstStart = false;
+    _onfirstStart = true;
     _onAuthenticated = false;
     loadPreferences();
   }

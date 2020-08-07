@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:legal_precedents/Provider/startup_provider.dart';
 import 'package:legal_precedents/pages/dashbaord.dart';
 import 'package:legal_precedents/services/auth_service.dart';
-import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -29,11 +27,10 @@ class _SignUpState extends State<SignUp> {
   }
 
   submit(String email, String password, String name) async {
-    var startupProvider = Provider.of<StartUpProvider>(context, listen: false);
     var uid = await _authService.createUser(email, password, name);
+    print(uid);
     if (uid != null) {
-      startupProvider.setOnAuthenticated(true);
-      Navigator.pushAndRemoveUntil(context,
+      await Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) => Dashbaord()), (_) => false);
       emailInputController.clear();
       passwordController.clear();

@@ -27,6 +27,7 @@ class _SignInState extends State<SignIn> {
   submit(String email, String password) async {
     var startupProvider = Provider.of<StartUpProvider>(context, listen: false);
     var uid = await _authService.signIn(email, password);
+    print(uid);
     if (uid != null) {
       startupProvider.setOnAuthenticated(true);
       Navigator.pushReplacement(

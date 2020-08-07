@@ -17,7 +17,7 @@ class _RootPageState extends State<RootPage> {
     if (startUpProvider.onAuthenticated) {
       return Dashbaord();
     } else if (startUpProvider.onfirstStart) {
-      startUpProvider.setOnFirstStart(true);
+      startUpProvider.setOnFirstStart(false);
       return SplashScreen();
     } else {
       return SignIn();

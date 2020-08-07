@@ -7,9 +7,41 @@ class Dashbaord extends StatefulWidget {
 }
 
 class _DashbaordState extends State<Dashbaord> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   //Code for dialogues
-  createAlertDialog(BuildContext context) {
-    return showDialog(context: null);
+
+  Future<String> createAlertDialog(BuildContext context) {
+    TextEditingController customController = new TextEditingController();
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            title: Text("Your Name"),
+            content: TextField(
+              controller: customController,
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                elevation: 5.0,
+                child: Text("Submit"),
+                onPressed: () {
+                  Navigator.of(context).pop(customController.text.toString());
+                },
+              ),
+              MaterialButton(
+                elevation: 5.0,
+                child: Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -38,6 +70,9 @@ class _DashbaordState extends State<Dashbaord> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          await createAlertDialog(context);
+        },
         label: Text(
           "Create Post",
           style: TextStyle(fontSize: 20),

@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_svg/flutter_svg.dart";
+import 'package:legal_precedents/services/firestore_service.dart';
 
 class Dashbaord extends StatefulWidget {
   @override
@@ -7,15 +9,29 @@ class Dashbaord extends StatefulWidget {
 }
 
 // TODO => Refactor and remove the other provider
-// TODO => Setup the new Provider
+// TODO => Setup the new Provider => Done
 // TODO => Design the list tile
+// TODO => Setup the Add function and ensure it works
 // TODO => Feed the display
 
 class _DashbaordState extends State<Dashbaord> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirestoreService _db = FirestoreService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //  final int number;
+//  final String words;
+//  final String author;
+//  final String userId;
+//  final String timeStamp;
+
+  submit(String words, String author) async {
+    FirebaseUser user = await _auth.currentUser();
+    final uid = user.uid;
+    var timeStamp = DateTime.now().toIso8601String();
+  }
 
   //Code for dialogues
-
   Future<String> createAlertDialog(BuildContext context) {
     final maxLines = 5;
     final _formKey = GlobalKey<FormState>();

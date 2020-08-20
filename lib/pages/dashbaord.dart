@@ -47,7 +47,7 @@ class _DashbaordState extends State<Dashbaord> {
             title: Text("Add Quote"),
             content: Container(
               height: MediaQuery.of(context).size.height * 0.3,
-              child: ListView(
+              child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
                   child: Column(

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:legal_precedents/models/quote_model.dart';
+import 'package:legal_precedents/pages/Info.dart';
 import 'package:legal_precedents/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
@@ -176,6 +177,14 @@ class _DashbaordState extends State<Dashbaord> {
                               borderRadius: BorderRadius.circular(15),
                               color: Theme.of(context).primaryColor),
                           child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => InfoPage(
+                                            quote: quote,
+                                          )));
+                            },
                             selected: false,
                             leading: Icon(
                               Icons.format_quote,

@@ -130,6 +130,7 @@ class _DashbaordState extends State<Dashbaord> {
     var quotes = Provider.of<List<Quote>>(context).toList();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Center(
             child: Text(
@@ -169,6 +170,7 @@ class _DashbaordState extends State<Dashbaord> {
                       itemBuilder: (context, index) {
                         Quote quote = quotes[index];
                         return Container(
+                          margin: EdgeInsets.only(bottom: 15),
                           padding: EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),

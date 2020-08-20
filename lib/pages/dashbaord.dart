@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:legal_precedents/models/quote_model.dart';
 import 'package:legal_precedents/services/firestore_service.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class _DashbaordState extends State<Dashbaord> {
 //  final String timeStamp;
 
   //Code for dialogues
-  Future<String> createAlertDialog(BuildContext context, reports) async {
+  Future<String> createAlertDialog(BuildContext context, quotes) async {
     FirebaseUser user = await _auth.currentUser();
     final uid = user.uid;
     final maxLines = 5;
@@ -61,7 +62,7 @@ class _DashbaordState extends State<Dashbaord> {
                             return null;
                           },
                           maxLines: maxLines,
-                          controller: authorController,
+                          controller: wordsController,
                           decoration: InputDecoration(
                               hintText: "Write your Law Quote",
                               fillColor: Theme.of(context).primaryColorLight,
@@ -75,7 +76,7 @@ class _DashbaordState extends State<Dashbaord> {
                           }
                           return null;
                         },
-                        controller: wordsController,
+                        controller: authorController,
                         decoration: InputDecoration(
                             hintText: "Author",
                             fillColor: Theme.of(context).primaryColorLight,
@@ -92,7 +93,7 @@ class _DashbaordState extends State<Dashbaord> {
                 child: Text("Submit"),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    if (reports.length == 0) {
+                    if (quotes.length == 0) {
                       await _db.addQuote(1, wordsController.text,
                           authorController.text, uid, timeStamp);
                       wordsController.clear();
@@ -100,7 +101,7 @@ class _DashbaordState extends State<Dashbaord> {
                       Navigator.pop(context);
                     } else {
                       await _db.addQuote(
-                          reports.length + 1,
+                          quotes.length + 1,
                           wordsController.text,
                           authorController.text,
                           uid,
@@ -126,34 +127,70 @@ class _DashbaordState extends State<Dashbaord> {
 
   @override
   Widget build(BuildContext context) {
-    var reports = Provider.of<List<Quote>>(context).toList();
+    var quotes = Provider.of<List<Quote>>(context).toList();
 
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "No Posts yet",
-                style: TextStyle(
-                    fontSize: 30, color: Theme.of(context).primaryColor),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-              Image.asset(
-                "images/no_content.png",
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: 200,
-              )
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: Center(
+            child: Text(
+          "Legal Precedent",
+          style: TextStyle(color: Theme.of(context).primaryColor),
+        )),
+        elevation: 0,
+        backgroundColor: Colors.white,
       ),
+      body: SafeArea(
+          child: quotes.length == 0
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "No Posts yet",
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                      ),
+                      Image.asset(
+                        "images/no_content.png",
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 200,
+                      )
+                    ],
+                  ),
+                )
+              : Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child: ListView.builder(
+                      itemCount: quotes.length,
+                      itemBuilder: (context, index) {
+                        Quote quote = quotes[index];
+                        return Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Theme.of(context).primaryColor),
+                          child: ListTile(
+                            selected: false,
+                            leading: Icon(Icons.format_quote),
+                            title: Text(
+                              quote.words,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(
+                              "Quote by " + quote.author,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      }),
+                )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await createAlertDialog(context, reports);
+          await createAlertDialog(context, quotes);
         },
         label: Text(
           "Create Post",

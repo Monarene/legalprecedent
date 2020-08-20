@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:legal_precedents/models/quote_model.dart';
 import 'package:legal_precedents/services/firestore_service.dart';
+import 'package:provider/provider.dart';
 
 class Dashbaord extends StatefulWidget {
   @override
@@ -14,9 +16,10 @@ class Dashbaord extends StatefulWidget {
 // TODO => Feed the display
 
 class _DashbaordState extends State<Dashbaord> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  // final _scaffoldKey = GlobalKey<ScaffoldState>();
   final FirestoreService _db = FirestoreService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  var timeStamp = DateTime.now().toIso8601String();
 
   //  final int number;
 //  final String words;
@@ -24,14 +27,10 @@ class _DashbaordState extends State<Dashbaord> {
 //  final String userId;
 //  final String timeStamp;
 
-  submit(String words, String author) async {
+  //Code for dialogues
+  Future<String> createAlertDialog(BuildContext context, reports) async {
     FirebaseUser user = await _auth.currentUser();
     final uid = user.uid;
-    var timeStamp = DateTime.now().toIso8601String();
-  }
-
-  //Code for dialogues
-  Future<String> createAlertDialog(BuildContext context) {
     final maxLines = 5;
     final _formKey = GlobalKey<FormState>();
     TextEditingController wordsController = new TextEditingController();
@@ -91,9 +90,25 @@ class _DashbaordState extends State<Dashbaord> {
               MaterialButton(
                 elevation: 5.0,
                 child: Text("Submit"),
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    Navigator.of(context).pop();
+                    if (reports.length == 0) {
+                      await _db.addQuote(1, wordsController.text,
+                          authorController.text, uid, timeStamp);
+                      wordsController.clear();
+                      authorController.clear();
+                      Navigator.pop(context);
+                    } else {
+                      await _db.addQuote(
+                          reports.length + 1,
+                          wordsController.text,
+                          authorController.text,
+                          uid,
+                          timeStamp);
+                      wordsController.clear();
+                      authorController.clear();
+                      Navigator.pop(context);
+                    }
                   }
                 },
               ),
@@ -111,6 +126,8 @@ class _DashbaordState extends State<Dashbaord> {
 
   @override
   Widget build(BuildContext context) {
+    var reports = Provider.of<List<Quote>>(context).toList();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -136,7 +153,7 @@ class _DashbaordState extends State<Dashbaord> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await createAlertDialog(context);
+          await createAlertDialog(context, reports);
         },
         label: Text(
           "Create Post",

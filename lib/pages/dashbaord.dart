@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import "package:flutter_svg/flutter_svg.dart";
 import 'package:legal_precedents/services/firestore_service.dart';
 
 class Dashbaord extends StatefulWidget {
@@ -48,41 +47,43 @@ class _DashbaordState extends State<Dashbaord> {
             title: Text("Add Quote"),
             content: Container(
               height: MediaQuery.of(context).size.height * 0.3,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: maxLines.toDouble() * 30,
-                      child: TextFormField(
+              child: ListView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: maxLines.toDouble() * 30,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'This field cannot be left blank';
+                            }
+                            return null;
+                          },
+                          maxLines: maxLines,
+                          controller: authorController,
+                          decoration: InputDecoration(
+                              hintText: "Write your Law Quote",
+                              fillColor: Theme.of(context).primaryColorLight,
+                              filled: true),
+                        ),
+                      ),
+                      TextFormField(
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'This field cannot be left blank';
                           }
                           return null;
                         },
-                        maxLines: maxLines,
-                        controller: authorController,
+                        controller: wordsController,
                         decoration: InputDecoration(
-                            hintText: "Write your Law Quote",
+                            hintText: "Author",
                             fillColor: Theme.of(context).primaryColorLight,
                             filled: true),
                       ),
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'This field cannot be left blank';
-                        }
-                        return null;
-                      },
-                      controller: wordsController,
-                      decoration: InputDecoration(
-                          hintText: "Author",
-                          fillColor: Theme.of(context).primaryColorLight,
-                          filled: true),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -124,8 +125,8 @@ class _DashbaordState extends State<Dashbaord> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
-              SvgPicture.asset(
-                "images/no_content.svg",
+              Image.asset(
+                "images/no_content.png",
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: 200,
               )

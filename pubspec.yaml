@@ -29,7 +29,7 @@ dependencies:
   firebase_core: ^0.4.2+1
   provider: ^4.0.4
   shared_preferences: ^0.5.8
-  flutter_svg: ^0.16.0
+
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +52,7 @@ flutter:
     - images/no_content.svg
     - images/activity_feed.svg
     - images/chioma.png
+    - images/no_content.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

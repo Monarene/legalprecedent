@@ -135,7 +135,7 @@ class _DashbaordState extends State<Dashbaord> {
         title: Center(
             child: Text(
           "Legal Precedent",
-          style: TextStyle(color: Theme.of(context).primaryColor),
+          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 25),
         )),
         elevation: 0,
         backgroundColor: Colors.white,
@@ -177,14 +177,25 @@ class _DashbaordState extends State<Dashbaord> {
                               color: Theme.of(context).primaryColor),
                           child: ListTile(
                             selected: false,
-                            leading: Icon(Icons.format_quote),
+                            leading: Icon(
+                              Icons.format_quote,
+                              color: Colors.white,
+                            ),
                             title: Text(
-                              quote.words,
+                              quote.words + ".",
                               style: TextStyle(color: Colors.white),
                             ),
-                            subtitle: Text(
-                              "Quote by " + quote.author,
-                              style: TextStyle(color: Colors.white),
+                            subtitle: Container(
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.only(top: 5),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 5),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.white)),
+                              child: Text(
+                                "Quote by " + quote.author,
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         );

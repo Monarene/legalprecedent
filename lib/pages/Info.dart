@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:legal_precedents/models/quote_model.dart';
 
 class InfoPage extends StatefulWidget {
@@ -49,6 +50,26 @@ class _InfoPageState extends State<InfoPage> {
                     flex: 1,
                   )
                 ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "- " + widget.quote.author,
+                style: TextStyle(fontSize: 20),
+              ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  margin: EdgeInsets.only(left: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(),
+                  child: Text(" Added on " + widget.quote.timeStamp),
+                ),
+              ),
+              SizedBox(
+                height: 10,
               )
             ],
           ),

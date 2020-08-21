@@ -128,7 +128,7 @@ class _DashbaordState extends State<Dashbaord> {
 
   @override
   Widget build(BuildContext context) {
-    var quotes = Provider.of<List<Quote>>(context).toList();
+    var quotes = Provider.of<List<Quote>>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,

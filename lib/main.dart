@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import "package:legal_precedents/Provider/startup_provider.dart";
-import 'package:legal_precedents/pages/root.dart';
+import 'package:legal_precedents/pages/SplashScreen.dart';
 import 'package:legal_precedents/services/firestore_service.dart';
 import "package:provider/provider.dart";
 
@@ -19,9 +18,6 @@ class _MyAppState extends State<MyApp> {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (BuildContext context) => StartUpProvider(),
-        ),
         StreamProvider(
           create: (BuildContext context) => _db.getQuote(),
         )
@@ -32,7 +28,7 @@ class _MyAppState extends State<MyApp> {
             textTheme:
                 GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
         home: Scaffold(
-          body: RootPage(),
+          body: SplashScreen(),
         ),
       ),
     );

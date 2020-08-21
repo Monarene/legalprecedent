@@ -142,7 +142,7 @@ class _DashbaordState extends State<Dashbaord> {
         backgroundColor: Colors.white,
       ),
       body: quotes == null
-          ? CircularProgressIndicator()
+          ? Center(child: CircularProgressIndicator())
           : SafeArea(
               child: quotes.length == 0
                   ? Center(

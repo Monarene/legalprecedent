@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:legal_precedents/Provider/startup_provider.dart';
 import 'package:legal_precedents/pages/ForgotPassword.dart';
 import 'package:legal_precedents/pages/SignUp.dart';
 import 'package:legal_precedents/pages/dashbaord.dart';
 import 'package:legal_precedents/services/auth_service.dart';
-import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -25,11 +23,9 @@ class _SignInState extends State<SignIn> {
   }
 
   submit(String email, String password) async {
-    var startupProvider = Provider.of<StartUpProvider>(context, listen: false);
     var uid = await _authService.signIn(email, password);
     print(uid);
     if (uid != null) {
-      startupProvider.setOnAuthenticated(true);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Dashbaord()));
       emailController.clear();
